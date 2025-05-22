@@ -16,7 +16,8 @@
                     colors: {
                         primary: '#1A1A1A',
                         secondary: '#333333',
-                        accent: '#4d0099'
+                        accent: '#4d0099',
+                        background: '#121212' // Добавлен новый цвет фона
                     },
                     borderRadius: {
                         'none': '0px',
@@ -40,7 +41,7 @@
     </script>
     <style>
         body {
-            background-color: #000000;
+            background-color: #121212; /* Изменен цвет фона */
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -99,6 +100,19 @@
             transform: rotateX(-15deg);
             opacity: 0;
             border-radius: 0 0 8px 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .friends-list::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(77, 0, 153, 0.05), rgba(77, 0, 153, 0.1));
+            z-index: -1;
+            border-radius: 0 0 8px 8px;
         }
         .friends-list.active {
             max-height: 800px;
@@ -118,6 +132,7 @@
             gap: 14px;
             transition: all 0.2s ease;
             transform-origin: left;
+            background-color: rgba(26, 26, 26, 0.9);
         }
         .friend-item:last-child {
             border-bottom: none;
@@ -202,7 +217,7 @@
         }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-background text-white">
     <div class="friends-container">
         <button id="friendsButton" class="friends-button whitespace-nowrap">
             <i class="ri-group-line text-lg"></i>
