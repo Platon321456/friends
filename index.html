@@ -121,7 +121,7 @@
             z-index: 1;
         }
         .friends-list.active {
-            max-height: 400px; /* Увеличил высоту для большего количества друзей */
+            max-height: 400px;
             box-shadow: 0 8px 32px rgba(77, 0, 153, 0.3);
             transform: rotateX(0);
             opacity: 1;
@@ -252,6 +252,19 @@
         }
     </style>
     
+    <div class="friends-container" id="durkaContainer" style="margin-bottom: 20px">
+        <a href="https://t.me/+rCqm0KDNZYYwOTFi" target="_blank" class="friends-button whitespace-nowrap">
+            <div class="flex items-center justify-between w-full">                <div class="flex items-center gap-3 flex-1">
+                    <div class="avatar" id="durka-avatar">
+                        <img src="https://i.postimg.cc/XJfcPmV8/c267bd60-b186-48d5-ad97-ad7b45dd7970.jpg" alt="Дурка" style="object-fit: cover">
+                    </div>
+                    <span>@ДУРКА</span>
+                </div>
+                <i class="ri-telegram-line telegram-icon ml-auto"></i>
+            </div>
+        </a>
+    </div>
+    
     <div class="friends-container">
         <button id="friendsButton" class="friends-button whitespace-nowrap">
             <i class="ri-group-line text-lg"></i>
@@ -300,7 +313,7 @@
                 item.dataset.initial = initial;
                 
                 item.innerHTML = `
-                    <div class="avatar loading-avatar" id="avatar-${friend.username}">
+                    <div class="avatar" id="avatar-${friend.username}">
                         <div class="avatar-initial">${initial}</div>
                     </div>
                     <span class="username">${friend.name}</span>
@@ -319,11 +332,16 @@
                     
                     const img = new Image();
                     img.onload = function() {
-                        avatarElement.innerHTML = `<img src="${avatarUrl}" alt="${username}" />`;
-                        avatarElement.classList.remove('loading-avatar');
+                        if (this.naturalWidth <= 1 || this.naturalHeight <= 1) {
+                            const initial = avatarElement.parentElement.dataset.initial;
+                            avatarElement.innerHTML = `<div class="avatar-initial">${initial}</div>`;
+                        } else {
+                            avatarElement.innerHTML = `<img src="${avatarUrl}" alt="${username}" />`;
+                        }
                     };
                     img.onerror = function() {
-                        avatarElement.classList.remove('loading-avatar');
+                        const initial = avatarElement.parentElement.dataset.initial;
+                        avatarElement.innerHTML = `<div class="avatar-initial">${initial}</div>`;
                     };
                     img.src = avatarUrl;
                     
@@ -342,9 +360,12 @@
                 }, Math.random() * 1000);
             });
 
+            const durkaContainer = document.getElementById('durkaContainer');
+            
             friendsButton.addEventListener('click', function() {
                 friendsList.classList.toggle('active');
                 arrowIcon.classList.toggle('rotate-180');
+                durkaContainer.style.display = friendsList.classList.contains('active') ? 'none' : 'block';
                 
                 if (friendsList.classList.contains('active')) {
                     const items = friendsList.querySelectorAll('.friend-item');
@@ -370,6 +391,7 @@
                 this.style.transform = 'translateY(0) scale(1)';
                 this.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.7)';
             });
+
             
             const friendItems = document.querySelectorAll('.friend-item');
             friendItems.forEach(item => {
