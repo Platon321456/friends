@@ -73,7 +73,7 @@
             background-color: #1A1A1A;
             color: white;
             border: 1px solid #4d0099;
-            padding: 14px 20px;
+            padding: 10px 20px;
             cursor: pointer;
             width: 100%;
             text-align: center;
@@ -206,14 +206,17 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
         }
         .telegram-icon {
             color: #0088cc;
-            font-size: 20px;
+            font-size: 22px;
             opacity: 0.7;
             transition: all 0.2s ease;
+        }
+        .ml-auto {
+            margin-left: auto;
         }
         .friend-item:hover .telegram-icon {
             opacity: 1;
@@ -252,7 +255,17 @@
         }
     </style>
     
-    <div class="friends-container">
+    <div class="friends-container" id="channelButton">
+        <a href="https://t.me/AztockaRP" target="_blank" class="friends-button whitespace-nowrap">
+            <div class="avatar" style="width: 45px; height: 45px; border-radius: 50%; background-color: #333; display: flex; align-items: center; justify-content: center;">
+                <img src="https://unavatar.io/telegram/AztockaRP" alt="AztockaRP" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <span class="text-lg">@AztockaRp</span>
+            <i class="ri-telegram-line text-xl ml-auto" style="color: #0088cc;"></i>
+        </a>
+    </div>
+
+    <div class="friends-container" style="margin-top: 20px;">
         <button id="friendsButton" class="friends-button whitespace-nowrap">
             <i class="ri-group-line text-lg"></i>
             <span>Любимки</span>
@@ -353,13 +366,21 @@
             friendsButton.addEventListener('click', function() {
                 friendsList.classList.toggle('active');
                 arrowIcon.classList.toggle('rotate-180');
+                const channelButton = document.getElementById('channelButton');
                 
                 if (friendsList.classList.contains('active')) {
+                    channelButton.style.opacity = '0';
+                    channelButton.style.pointerEvents = 'none';
+                    channelButton.style.transition = 'opacity 0.3s ease';
+                    
                     const items = friendsList.querySelectorAll('.friend-item');
                     items.forEach((item, index) => {
                         item.style.animation = `fadeIn 0.3s ease forwards ${index * 0.05}s`;
                     });
                 } else {
+                    channelButton.style.opacity = '1';
+                    channelButton.style.pointerEvents = 'auto';
+                    
                     const items = friendsList.querySelectorAll('.friend-item');
                     items.forEach(item => {
                         item.style.animation = 'none';
