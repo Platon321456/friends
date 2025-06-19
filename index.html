@@ -252,19 +252,6 @@
         }
     </style>
     
-    <div class="friends-container" id="durkaContainer" style="margin-bottom: 20px">
-        <a href="https://t.me/+rCqm0KDNZYYwOTFi" target="_blank" class="friends-button whitespace-nowrap">
-            <div class="flex items-center justify-between w-full">                <div class="flex items-center gap-3 flex-1">
-                    <div class="avatar" id="durka-avatar">
-                        <img src="https://i.postimg.cc/XJfcPmV8/c267bd60-b186-48d5-ad97-ad7b45dd7970.jpg" alt="Дурка" style="object-fit: cover">
-                    </div>
-                    <span>@ДУРКА</span>
-                </div>
-                <i class="ri-telegram-line telegram-icon ml-auto"></i>
-            </div>
-        </a>
-    </div>
-    
     <div class="friends-container">
         <button id="friendsButton" class="friends-button whitespace-nowrap">
             <i class="ri-group-line text-lg"></i>
@@ -363,12 +350,9 @@
                 }, Math.random() * 1000);
             });
 
-            const durkaContainer = document.getElementById('durkaContainer');
-            
             friendsButton.addEventListener('click', function() {
                 friendsList.classList.toggle('active');
                 arrowIcon.classList.toggle('rotate-180');
-                durkaContainer.style.display = friendsList.classList.contains('active') ? 'none' : 'block';
                 
                 if (friendsList.classList.contains('active')) {
                     const items = friendsList.querySelectorAll('.friend-item');
